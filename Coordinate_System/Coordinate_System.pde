@@ -1,6 +1,14 @@
 int gridSize = 10;
 int zoomFactor = 1;
 
+class Coordinate {
+  float x, y;
+  Coordinate(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
 void createGrid() {
   //Text Config
   fill(0, 128, 192);
@@ -39,13 +47,37 @@ void createLine(float m, float c) {
 }
 
 //Zoom Coordinate System
-int clamp(int val, int min, int max) {
+float clamp(float val, float min, float max) {
   return val < min ? min : val > max ? max : val;
 }
 
 void mouseWheel(MouseEvent event) {
-  zoomFactor = clamp(zoomFactor - event.getCount(), 1, 4);
+  zoomFactor = (int)clamp(zoomFactor - event.getCount(), 1, 4);
   gridSize = 10 * zoomFactor;
+}
+
+ArrayList<Coordinate> list = new ArrayList();
+void mouseClicked() {
+  list.add(new Coordinate( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
+}
+
+void drawPoint() {
+  for (Coordinate i : list) {
+    float radius = clamp(gridSize / 12, 0.75, 8);
+    fill(255, 0, 0);
+    noStroke();
+    ellipse(i.x * zoomFactor, i.y * zoomFactor, radius, radius);
+    printLabel(i.x, i.y);
+  }
+}
+
+void printLabel(float x, float y) {
+  textSize(gridSize / 3);
+  pushMatrix();
+  fill(0, 128, 192);
+  scale(1, -1);
+  text("(" +(4 * x / gridSize) +", " +(4 * y / gridSize) +")", x * zoomFactor, -y * zoomFactor);
+  popMatrix();
 }
 
 void setup() {
@@ -61,4 +93,5 @@ void draw() {
    * m = 2, c = 4
    */
   createLine(2, 4);
+  drawPoint();
 }
