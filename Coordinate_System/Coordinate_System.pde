@@ -5,15 +5,13 @@ void createGrid() {
   fill(0);
   for(int y = -height / 2, index = height / (GRID_SIZE * 2);
           y <= height / 2; y += GRID_SIZE){
-      float weight = y == 0 ? 1.2 : 0.5;
-      strokeWeight(weight);
+      strokeWeight(y == 0 ? 1.2 : 0.5);
       text(index--, -GRID_SIZE, y + GRID_SIZE);
       line(-width / 2, y, width / 2, y);
   }
   for(int x = -width / 2, index = width / (GRID_SIZE * 2);
           x <= width / 2; x += GRID_SIZE){
-      float weight = x == 0 ? 1.2 : 0.5;
-      strokeWeight(weight);
+      strokeWeight(x == 0 ? 1.2 : 0.5);
       text(index--, x -GRID_SIZE, GRID_SIZE);
       line(x, -height / 2, x, height / 2);
   }
