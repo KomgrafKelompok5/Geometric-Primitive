@@ -1,6 +1,6 @@
 # Geometric-Primitive
 Nama Anggota KELOMPOK:
-* Alim Wicaksono H. P\n
-* Andreas Fandy D.N\n
-* Ega Yastira\n
-* Muhammad Farhan I\n
+* Alim Wicaksono H. P
+* Andreas Fandy D.N
+* Ega Yastira
+* Muhammad Farhan I
