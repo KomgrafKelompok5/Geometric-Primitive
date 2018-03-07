@@ -59,9 +59,9 @@ void mouseWheel(MouseEvent event) {
 ArrayList<Coordinate> list = new ArrayList();
 void mouseClicked() {
   list.add(new Coordinate( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
-  if(begin!=-1){
+  if (begin!=-1) {
     loc+= "("+float ((mouseX - width / 2) / zoomFactor)/10+", "+ -float((mouseY - height / 2) / zoomFactor)/10+") ";
-    label4.setText(loc); 
+    label4.setText(loc);
   }
 }
 
@@ -72,7 +72,6 @@ void drawPoint() {
     noStroke();
     ellipse(i.x * zoomFactor, i.y * zoomFactor, radius, radius);
     printLabel(i.x, i.y);
-    
   }
 }
 void printLabel(float x, float y) {
@@ -95,19 +94,21 @@ class Line {
   }
 }
 ArrayList<Line> linelist = new ArrayList();
-void listLine(){
+void listLine() {
   for (Line i : linelist) {
     createLine(i.x, i.y);
   }
 }
+
 //create shape
-int begin=-1,end=-1;
+int begin=-1, end=-1;
 String loc="";
-void shap(){
-  beginShape();
-  for (int i=begin;i<=end;i++) {
-  vertex(list.get(i).x* zoomFactor, list.get(i).y* zoomFactor);
-  //loc+=list.get(i).x+","+ list.get(i).y+"  ";
+void shap() {
+  noFill();
+  stroke(0, 255, 255);
+  beginShape(TRIANGLE_FAN);
+  for (int i=begin; i<=end; i++) {
+    vertex(list.get(i).x* zoomFactor, list.get(i).y* zoomFactor);
   }
   endShape(CLOSE);
 }

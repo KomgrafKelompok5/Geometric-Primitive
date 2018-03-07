@@ -70,6 +70,7 @@ public void button6_click1(GButton source, GEvent event) { //_CODE_:button6:6653
   end=-1;
   label4.setText("--"); 
   loc="";
+  list.clear();
 } //_CODE_:button6:665365:
 
 
