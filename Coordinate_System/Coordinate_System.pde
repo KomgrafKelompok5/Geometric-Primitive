@@ -1,9 +1,9 @@
 int gridSize = 10;
 int zoomFactor = 1;
 
-class Coordinate {
+class Point {
   float x, y;
-  Coordinate(float x, float y) {
+  Point(float x, float y) {
     this.x = x;
     this.y = y;
   }
@@ -42,6 +42,7 @@ float lineEq(float m, float x, float c) {
 
 void createLine(float m, float c) {
   stroke(255, 0, 0);
+  strokeWeight(1.2);
   float x = width / 2;
   line(-x, lineEq(m, -x, c), x, lineEq(m, x, c));
 }
@@ -56,18 +57,18 @@ void mouseWheel(MouseEvent event) {
   gridSize = 10 * zoomFactor;
 }
 
-ArrayList<Coordinate> list = new ArrayList();
+ArrayList<Point> points = new ArrayList();
 void mouseClicked() {
-  list.add(new Coordinate( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
+  points.add(new Point( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
 }
 
 void drawPoint() {
-  for (Coordinate i : list) {
-    float radius = clamp(gridSize / 12, 0.75, 8);
+  for (Point point : points) {
+    float radius = clamp(gridSize / 12, 0.75, 5);
     fill(255, 0, 0);
     noStroke();
-    ellipse(i.x * zoomFactor, i.y * zoomFactor, radius, radius);
-    printLabel(i.x, i.y);
+    ellipse(point.x * zoomFactor, point.y * zoomFactor, radius, radius);
+    printLabel(point.x, point.y);
   }
 }
 
@@ -76,8 +77,58 @@ void printLabel(float x, float y) {
   pushMatrix();
   fill(0, 128, 192);
   scale(1, -1);
-  text("(" +(4 * x / gridSize) +", " +(4 * y / gridSize) +")", x * zoomFactor, -y * zoomFactor);
+  text("(" +nfc((zoomFactor * x / gridSize), 2) +", " +nfc((zoomFactor * y / gridSize), 2) +")", x * zoomFactor, -y * zoomFactor);
   popMatrix();
+}
+
+void drawPolygon(ArrayList<Point> _points) {
+  if (!_points.isEmpty()) {
+    pushMatrix();
+    stroke(255, 0, 0);
+    strokeWeight(1.2);
+    for (int i = 0; i < _points.size() - 1; i++) {
+      Point p1 = _points.get(i);
+      Point p2 = _points.get(i + 1);
+      line(p1.x * zoomFactor, p1.y * zoomFactor, p2.x * zoomFactor, p2.y * zoomFactor);
+    }
+
+    Point start = _points.get(0);
+    Point end = _points.get(_points.size() - 1);
+    line(start.x * zoomFactor, start.y * zoomFactor, end.x * zoomFactor, end.y * zoomFactor);
+    popMatrix();
+  }
+}
+
+//Methode experimental, Jangan di pikir berat!
+int orientation(Point p, Point q, Point r) {
+  float val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+
+  if (val == 0) return 0;
+  return (val > 0)? 1: 2;
+}
+
+//Methode experimental, Jangan di pikir berat!
+ArrayList<Point> convexHull(ArrayList<Point> _points) {
+  if (_points.size() < 3) return _points;
+  ArrayList<Point> hull = new ArrayList();
+
+  int l = 0;
+  for (int i = 1; i < _points.size(); i++)
+    if (_points.get(i).x < _points.get(l).x)
+      l = i;
+
+  int p = l, q;
+  do {
+    hull.add(_points.get(p));
+    q = (p + 1) % _points.size();
+
+    for (int i = 0; i < _points.size(); i++) {
+      if (orientation(_points.get(p), _points.get(i), _points.get(q))== 2)
+        q = i;
+    } 
+    p = q;
+  } while (p != l); 
+  return hull;
 }
 
 void setup() {
@@ -94,4 +145,6 @@ void draw() {
    */
   createLine(2, 4);
   drawPoint();
+  drawPolygon(convexHull(points));
+  
 }
