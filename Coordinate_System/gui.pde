@@ -47,7 +47,7 @@ public void textfield2_change1(GTextField source, GEvent event) { //_CODE_:textf
 
 public void button3_click1(GButton source, GEvent event) { //_CODE_:button3:300020:
   println("button3 - GButton >> GEvent." + event + " @ " + millis());
-  linelist.add(new Line(int(textfield1.getText()), int(textfield2.getText())));
+  lines.add(new Line(int(textfield1.getText()), int(textfield2.getText())));
   textfield1.setText("");
   textfield2.setText("");
   //diisi creatLine tapi gg bisa loop coba di buat list kayak point 
@@ -56,12 +56,12 @@ public void button3_click1(GButton source, GEvent event) { //_CODE_:button3:3000
 
 public void button4_click1(GButton source, GEvent event) { //_CODE_:button4:904246:
   println("button4 - GButton >> GEvent." + event + " @ " + millis());
-  begin = list.size();
+  begin = points.size();
 } //_CODE_:button4:904246:
 
 public void button5_click1(GButton source, GEvent event) { //_CODE_:button5:934592:
   println("button5 - GButton >> GEvent." + event + " @ " + millis());
-  end = list.size()-1;
+  end = points.size()-1;
 } //_CODE_:button5:934592:
 
 public void button6_click1(GButton source, GEvent event) { //_CODE_:button6:665365:
@@ -70,6 +70,7 @@ public void button6_click1(GButton source, GEvent event) { //_CODE_:button6:6653
   end=-1;
   label4.setText("--"); 
   loc="";
+  points.clear();
 } //_CODE_:button6:665365:
 
 

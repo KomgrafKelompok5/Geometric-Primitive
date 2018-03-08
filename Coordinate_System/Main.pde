@@ -1,9 +1,9 @@
 int gridSize = 10;
 int zoomFactor = 1;
 
-class Coordinate {
+class Point {
   float x, y;
-  Coordinate(float x, float y) {
+  Point(float x, float y) {
     this.x = x;
     this.y = y;
   }
@@ -56,23 +56,22 @@ void mouseWheel(MouseEvent event) {
   gridSize = 10 * zoomFactor;
 }
 
-ArrayList<Coordinate> list = new ArrayList();
+ArrayList<Point> points = new ArrayList();
 void mouseClicked() {
-  list.add(new Coordinate( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
-  if(begin!=-1){
+  points.add(new Point( (mouseX - width / 2) / zoomFactor, -(mouseY - height / 2) / zoomFactor));
+  if (begin!=-1) {
     loc+= "("+float ((mouseX - width / 2) / zoomFactor)/10+", "+ -float((mouseY - height / 2) / zoomFactor)/10+") ";
-    label4.setText(loc); 
+    label4.setText(loc);
   }
 }
 
 void drawPoint() {
-  for (Coordinate i : list) {
+  for (Point point : points) {
     float radius = clamp(gridSize / 12, 0.75, 8);
     fill(255, 0, 0);
     noStroke();
-    ellipse(i.x * zoomFactor, i.y * zoomFactor, radius, radius);
-    printLabel(i.x, i.y);
-    
+    ellipse(point.x * zoomFactor, point.y * zoomFactor, radius, radius);
+    printLabel(point.x, point.y);
   }
 }
 void printLabel(float x, float y) {
@@ -80,7 +79,7 @@ void printLabel(float x, float y) {
   pushMatrix();
   fill(0, 128, 192);
   scale(1, -1);
-  text("(" +(4 * x / gridSize) +", " +(4 * y / gridSize) +")", x * zoomFactor, -y * zoomFactor);
+  text("(" +nfc((zoomFactor * x / gridSize), 1) +", " +nfc((zoomFactor * y / gridSize), 1) +")", x * zoomFactor, -y * zoomFactor);
   popMatrix();
 }
 
@@ -94,20 +93,23 @@ class Line {
     this.y = y;
   }
 }
-ArrayList<Line> linelist = new ArrayList();
-void listLine(){
-  for (Line i : linelist) {
-    createLine(i.x, i.y);
+ArrayList<Line> lines = new ArrayList();
+void listLine() {
+  strokeWeight(1.3);
+  for (Line line : lines) {
+    createLine(line.x, line.y);
   }
 }
+
 //create shape
-int begin=-1,end=-1;
+int begin=-1, end=-1;
 String loc="";
-void shap(){
-  beginShape();
-  for (int i=begin;i<=end;i++) {
-  vertex(list.get(i).x* zoomFactor, list.get(i).y* zoomFactor);
-  //loc+=list.get(i).x+","+ list.get(i).y+"  ";
+void shap() {
+  fill(255, 0, 0, 150);
+  strokeWeight(1.3);
+  beginShape(TRIANGLE_FAN);
+  for (int i=begin; i<=end; i++) {
+    vertex(points.get(i).x* zoomFactor, points.get(i).y* zoomFactor);
   }
   endShape(CLOSE);
 }

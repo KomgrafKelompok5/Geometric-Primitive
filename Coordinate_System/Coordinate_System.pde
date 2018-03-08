@@ -13,8 +13,6 @@ void draw() {
    */
   drawPoint();
   listLine();
-   if(end!=-1)shap();
-  //membuat garis dengan inputan 
-  //createLine(int(textfield1.getText()), int(textfield2.getText()));
+  if (end!=-1)shap();
 }
 //kalo nullpointer coba run terus sampai bisa
