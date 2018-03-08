@@ -119,7 +119,7 @@ public void createGUI(){
   button5 = new GButton(window1, 109, 166, 81, 30);
   button5.setText("End Shape");
   button5.addEventHandler(this, "button5_click1");
-  label4 = new GLabel(window1, 20, 206, 200, 29);
+  label4 = new GLabel(window1, 20, 206, 200, 77);
   label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label4.setText("--");
   label4.setOpaque(false);
