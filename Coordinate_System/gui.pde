@@ -77,7 +77,7 @@ public void textfield4_change1(GTextField source, GEvent event) { //_CODE_:textf
 
 public void button7_click1(GButton source, GEvent event) { //_CODE_:button7:884711:
   println("button7 - GButton >> GEvent." + event + " @ " + millis());
-  points.add(new Point( (int (textfield3.getText())*10)/ zoomFactor, ((int (textfield4.getText())*10)/ zoomFactor)));
+  points.add(new Point( (int (textfield3.getText())*gridSize)/ zoomFactor, ((int (textfield4.getText())*gridSize)/ zoomFactor)));
   textfield3.setText("");
   textfield4.setText("");
 } //_CODE_:button7:884711:
