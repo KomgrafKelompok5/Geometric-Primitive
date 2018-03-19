@@ -73,6 +73,18 @@ public void button6_click1(GButton source, GEvent event) { //_CODE_:button6:6653
   points.clear();
 } //_CODE_:button6:665365:
 
+public void textfield3_change1(GTextField source, GEvent event) { //_CODE_:textfield3:372628:
+  println("textfield3 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield3:372628:
+
+public void textfield4_change1(GTextField source, GEvent event) { //_CODE_:textfield4:741042:
+  println("textfield4 - GTextField >> GEvent." + event + " @ " + millis());
+} //_CODE_:textfield4:741042:
+
+public void button7_click1(GButton source, GEvent event) { //_CODE_:button7:884711:
+  println("button7 - GButton >> GEvent." + event + " @ " + millis());
+} //_CODE_:button7:884711:
+
 
 
 // Create all the GUI controls. 
@@ -120,13 +132,22 @@ public void createGUI(){
   button5 = new GButton(window1, 109, 166, 81, 30);
   button5.setText("End Shape");
   button5.addEventHandler(this, "button5_click1");
-  label4 = new GLabel(window1, 20, 206, 200, 77);
+  label4 = new GLabel(window1, 20, 206, 150, 32);
   label4.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label4.setText("--");
   label4.setOpaque(false);
   button6 = new GButton(window1, 197, 166, 80, 30);
   button6.setText("Remove Shape");
   button6.addEventHandler(this, "button6_click1");
+  textfield3 = new GTextField(window1, 14, 253, 58, 30, G4P.SCROLLBARS_NONE);
+  textfield3.setOpaque(true);
+  textfield3.addEventHandler(this, "textfield3_change1");
+  textfield4 = new GTextField(window1, 79, 253, 68, 30, G4P.SCROLLBARS_NONE);
+  textfield4.setOpaque(true);
+  textfield4.addEventHandler(this, "textfield4_change1");
+  button7 = new GButton(window1, 158, 254, 80, 30);
+  button7.setText("Face text");
+  button7.addEventHandler(this, "button7_click1");
   window1.loop();
 }
 
@@ -145,3 +166,6 @@ GButton button4;
 GButton button5; 
 GLabel label4; 
 GButton button6; 
+GTextField textfield3; 
+GTextField textfield4; 
+GButton button7; 

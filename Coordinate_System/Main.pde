@@ -105,7 +105,7 @@ void listLine() {
 int begin=-1, end=-1;
 String loc="";
 void shap() {
-  fill(255, 0, 0, 150);
+  //fill(255, 0, 0);
   strokeWeight(1.3);
   beginShape(TRIANGLE_FAN);
   for (int i=begin; i<=end; i++) {
