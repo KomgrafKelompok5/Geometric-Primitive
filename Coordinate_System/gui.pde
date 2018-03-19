@@ -16,13 +16,7 @@
 
 synchronized public void win_draw1(PApplet appc, GWinData data) { //_CODE_:window1:527658:
   appc.background(255);
-  appc.noFill();
-  appc.beginShape();
-  appc.vertex(25, 18);
-  appc.vertex(275, 18);
-  appc.vertex(275, 38);
-  appc.vertex(25, 38);
-  appc.endShape(CLOSE);
+ 
 } //_CODE_:window1:527658:
 
 public void button1_click1(GButton source, GEvent event) { //_CODE_:button1:681417:
@@ -83,6 +77,9 @@ public void textfield4_change1(GTextField source, GEvent event) { //_CODE_:textf
 
 public void button7_click1(GButton source, GEvent event) { //_CODE_:button7:884711:
   println("button7 - GButton >> GEvent." + event + " @ " + millis());
+  points.add(new Point( (int (textfield3.getText())*10)/ zoomFactor, ((int (textfield4.getText())*10)/ zoomFactor)));
+  textfield3.setText("");
+  textfield4.setText("");
 } //_CODE_:button7:884711:
 
 
@@ -103,20 +100,11 @@ public void createGUI(){
   button2 = new GButton(window1, 68, 79, 40, 30);
   button2.setText("Zoom Out");
   button2.addEventHandler(this, "button2_click1");
-  label1 = new GLabel(window1, 19, 50, 270, 20);
+  label1 = new GLabel(window1, 18, 11, 270, 20);
   label1.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
   label1.setText("Tools");
   label1.setLocalColorScheme(GCScheme.GREEN_SCHEME);
   label1.setOpaque(false);
-  label2 = new GLabel(window1, 19, 20, 81, 20);
-  label2.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label2.setText("Coordinate :");
-  label2.setOpaque(false);
-  label3 = new GLabel(window1, 108, 20, 80, 20);
-  label3.setTextAlign(GAlign.CENTER, GAlign.MIDDLE);
-  label3.setText("--");
-  label3.setLocalColorScheme(GCScheme.RED_SCHEME);
-  label3.setOpaque(false);
   textfield1 = new GTextField(window1, 104, 120, 50, 20, G4P.SCROLLBARS_NONE);
   textfield1.setOpaque(true);
   textfield1.addEventHandler(this, "textfield1_change1");
@@ -146,7 +134,7 @@ public void createGUI(){
   textfield4.setOpaque(true);
   textfield4.addEventHandler(this, "textfield4_change1");
   button7 = new GButton(window1, 158, 254, 80, 30);
-  button7.setText("Face text");
+  button7.setText("Add point");
   button7.addEventHandler(this, "button7_click1");
   window1.loop();
 }
@@ -157,8 +145,6 @@ GWindow window1;
 GButton button1; 
 GButton button2; 
 GLabel label1; 
-GLabel label2; 
-GLabel label3; 
 GTextField textfield1; 
 GTextField textfield2; 
 GButton button3; 

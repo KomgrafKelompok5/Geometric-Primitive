@@ -113,7 +113,3 @@ void shap() {
   }
   endShape(CLOSE);
 }
-//show Coordinate
-void mouseMoved() {
-  label3.setText(float ((mouseX - width / 2) / zoomFactor)/10+", "+ -float((mouseY - height / 2) / zoomFactor)/10);
-}
